@@ -150,14 +150,18 @@ module.exports = function(options) {
 
     function jsRegPush(name, file) {
       push(file);
-      name = options.outputRelativePath ? path.join(options.outputRelativePath, name) : name;
+      if (!options.isBlockPath) {
+        name = options.outputRelativePath ? path.join(options.outputRelativePath, name) : name;
+      }
       if (path.extname(file.path) === '.js')
         jade.push('script(' + renderAttributes(section[5], name.replace(path.basename(name), path.basename(file.path))) + ' )');
     }
 
     function cssRegPush(name, file) {
       push(file);
-      name = options.outputRelativePath ? path.join(options.outputRelativePath, name) : name;
+      if (!options.isBlockPath) {
+        name = options.outputRelativePath ? path.join(options.outputRelativePath, name) : name;
+      }
       if (path.extname(file.path) === '.css')
         jade.push('link(' + renderAttributes(section[5], name.replace(path.basename(name), path.basename(file.path))) + ' )');
     }
